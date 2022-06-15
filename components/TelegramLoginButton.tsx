@@ -47,6 +47,9 @@ const TelegramLoginButton = ({
     }
     script.async = true;
     // @ts-ignore
+    console.log(this);
+
+    // @ts-ignore
     this.instance.appendChild(script);
   }, [
     botName,
