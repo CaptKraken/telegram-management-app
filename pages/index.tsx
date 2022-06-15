@@ -2,11 +2,16 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { ReactElement, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import TelegramLoginButton from "../components/TelegramLoginButton";
+import { setUser } from "../features/authSlice";
+import { useAuth } from "../hooks/use-auth";
 
 const Home: NextPage = () => {
+  const authState = useAuth();
+  const dispatch = useDispatch();
   const onTelegramAuth = (user: any) => {
-    console.log("user", user);
+    dispatch(setUser(user));
   };
 
   // useEffect(() => {
@@ -38,6 +43,8 @@ const Home: NextPage = () => {
           botName="ckdaycounter_bot"
           dataOnauth={onTelegramAuth}
         />
+
+        <pre>{authState?.username ?? "not logged in"}</pre>
       </main>
     </div>
   );
