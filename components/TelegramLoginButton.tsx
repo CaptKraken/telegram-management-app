@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 
 interface TelegramLoginButtonProps {
   botName: string;
@@ -11,7 +11,7 @@ interface TelegramLoginButtonProps {
   dataAuthUrl?: string;
 }
 
-const TelegramLoginButton = function ({
+const TelegramLoginButton = ({
   botName = "bob_bot",
   dataOnauth,
   buttonSize = "large",
@@ -20,7 +20,8 @@ const TelegramLoginButton = function ({
   usePic = true,
   lang = "en",
   dataAuthUrl,
-}: TelegramLoginButtonProps) {
+}: TelegramLoginButtonProps) => {
+  const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
   useEffect(() => {
     // @ts-ignore
     window.TelegramLoginWidget = {
@@ -46,11 +47,8 @@ const TelegramLoginButton = function ({
       );
     }
     script.async = true;
-    // @ts-ignore
-    console.log(this);
 
-    // @ts-ignore
-    this.instance.appendChild(script);
+    ref.current.appendChild(script);
   }, [
     botName,
     buttonSize,
@@ -62,7 +60,7 @@ const TelegramLoginButton = function ({
     usePic,
   ]);
 
-  return <div>TelegramLoginButton</div>;
+  return <div ref={ref}></div>;
 };
 
 export default TelegramLoginButton;
