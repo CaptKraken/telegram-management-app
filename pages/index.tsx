@@ -2,10 +2,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { ReactElement, useEffect } from "react";
+import TelegramLoginButton from "../components/TelegramLoginButton";
 
 const Home: NextPage = () => {
   const onTelegramAuth = (user: any) => {
-    console.log(user);
+    console.log("user", user);
   };
 
   useEffect(() => {
@@ -33,6 +34,10 @@ const Home: NextPage = () => {
         <h1>Telegram Group Management App</h1>
         <div dangerouslySetInnerHTML={login}></div>
         <hr></hr>
+        <TelegramLoginButton
+          botName="ckdaycounter_bot"
+          dataOnauth={onTelegramAuth}
+        />
       </main>
     </div>
   );
