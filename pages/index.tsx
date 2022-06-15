@@ -1,20 +1,23 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 
 const Home: NextPage = () => {
   const onTelegramAuth = (user: any) => {
     console.log(user);
   };
+
+  useEffect(() => {
+    // @ts-ignore
+    window.onTelegramAuth = (user) => onTelegramAuth(user);
+  }, []);
   const login = {
-    __html: `<script async src="https://telegram.org/js/telegram-widget.js?19" data-telegram-login="ckdaycounter_bot" data-size="large" data-onauth="${(
-      user: any
-    ) => onTelegramAuth(user)}" data-request-access="write"></script>
+    __html: `<script async src="https://telegram.org/js/telegram-widget.js?19" data-telegram-login="ckdaycounter_bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
     <script type="text/javascript">
-      function onTelegramAuth(user) {
-        alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-      }
+      // function onTelegramAuth(user) {
+      //   alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+      // }
     </script>`,
   };
 
@@ -29,6 +32,7 @@ const Home: NextPage = () => {
       <main className="w-full h-full min-h-screen flex flex-col justify-center items-center text-center">
         <h1>Telegram Group Management App</h1>
         <div dangerouslySetInnerHTML={login}></div>
+        <hr></hr>
       </main>
     </div>
   );
