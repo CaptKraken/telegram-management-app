@@ -11,7 +11,7 @@ interface TelegramLoginButtonProps {
   dataAuthUrl?: string;
 }
 
-const TelegramLoginButton = ({
+const TelegramLoginButton = function ({
   botName = "bob_bot",
   dataOnauth,
   buttonSize = "large",
@@ -20,7 +20,7 @@ const TelegramLoginButton = ({
   usePic = true,
   lang = "en",
   dataAuthUrl,
-}: TelegramLoginButtonProps) => {
+}: TelegramLoginButtonProps) {
   useEffect(() => {
     // @ts-ignore
     window.TelegramLoginWidget = {
